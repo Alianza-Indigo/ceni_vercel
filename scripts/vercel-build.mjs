@@ -23,6 +23,7 @@ if (hasEnv("DATABASE_URL")) {
 
   if (hasEnv("SEED_ADMIN_EMAIL") && hasEnv("SEED_ADMIN_PASSWORD")) {
     run("npm", ["run", "db:seed"]);
+    run("node", ["scripts/update-admin-password.mjs"]);
   } else {
     console.log("Skipping seed: SEED_ADMIN_EMAIL or SEED_ADMIN_PASSWORD is missing.");
   }
