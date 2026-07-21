@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" width="240" height="160" role="img" aria-labelledby="ceni-empty-verify-title" class="decorative-illustration" color="#1B1F5A">
+  <title id="ceni-empty-verify-title">Ilustración decorativa: certificado con nodo en espera de verificación</title>
+  <rect x="58" y="36" width="124" height="88" rx="8" fill="#FFFFFF" stroke="currentColor" stroke-width="3"/>
+  <rect x="66" y="44" width="108" height="72" rx="5" fill="none" stroke="var(--ceni-gold, #C9A227)" stroke-width="1.5"/>
+  <g stroke="#ECEDF5" stroke-width="5" stroke-linecap="round">
+    <line x1="80" y1="64" x2="140" y2="64"/>
+    <line x1="80" y1="80" x2="156" y2="80"/>
+    <line x1="80" y1="96" x2="120" y2="96"/>
+  </g>
+  <circle cx="152" cy="100" r="12" fill="#F6EFD9" stroke="var(--ceni-gold, #C9A227)" stroke-width="2.5"/>
+  <circle cx="152" cy="100" r="4" fill="var(--ceni-gold, #C9A227)"/>
+  <circle cx="186" cy="60" r="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3.5 4" stroke-linecap="round"/>
+  <line x1="163" y1="93" x2="178" y2="67" stroke="currentColor" stroke-width="2" stroke-dasharray="2 4.5" stroke-linecap="round"/>
+</svg>

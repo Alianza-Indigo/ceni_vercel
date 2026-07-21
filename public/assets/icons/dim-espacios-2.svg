@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Accesibilidad cognitiva">
+  <path d="M15.5 15.5s-4.5-3.7-4.5-7a4.5 4.5 0 0 1 9 0c0 3.3-4.5 7-4.5 7z"/>
+  <circle cx="15.5" cy="8.5" r="1.5"/>
+  <path d="M4 21c4 0 5.5-2.5 7.5-5"/>
+  <circle cx="4" cy="21" r="0.5"/>
+</svg>

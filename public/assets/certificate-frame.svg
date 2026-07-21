@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1122 794" width="1122" height="794" role="img" aria-labelledby="ceni-cert-frame-title" color="#1B1F5A">
+  <title id="ceni-cert-frame-title">Marco decorativo de certificado CENI; el centro queda libre para el contenido</title>
+  <defs>
+    <pattern id="ceni-guilloche" width="40" height="16" patternUnits="userSpaceOnUse">
+      <path d="M0 8q10-12 20 0t20 0" fill="none" stroke="#1B1F5A" stroke-width="1" stroke-opacity="0.55"/>
+      <path d="M0 8q10 12 20 0t20 0" fill="none" stroke="#C9A227" stroke-width="1" stroke-opacity="0.7"/>
+    </pattern>
+    <g id="ceni-corner-ornament">
+      <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="0" y1="0" x2="26" y2="10"/>
+        <line x1="0" y1="0" x2="10" y2="26"/>
+        <line x1="26" y1="10" x2="10" y2="26"/>
+      </g>
+      <circle cx="0" cy="0" r="7" fill="currentColor"/>
+      <circle cx="26" cy="10" r="5" fill="#C9A227"/>
+      <circle cx="10" cy="26" r="5" fill="#C9A227"/>
+      <circle cx="26" cy="26" r="2.5" fill="currentColor"/>
+    </g>
+  </defs>
+  <!-- outer border -->
+  <rect x="20" y="20" width="1082" height="754" rx="16" fill="none" stroke="currentColor" stroke-width="3"/>
+  <!-- guilloche band (evenodd ring between two rounded rects) -->
+  <path d="M44 32h1034a12 12 0 0 1 12 12v706a12 12 0 0 1-12 12H44a12 12 0 0 1-12-12V44a12 12 0 0 1 12-12z
+           M56 48h1010a8 8 0 0 1 8 8v682a8 8 0 0 1-8 8H56a8 8 0 0 1-8-8V56a8 8 0 0 1 8-8z"
+        fill="url(#ceni-guilloche)" fill-rule="evenodd"/>
+  <!-- inner double border -->
+  <rect x="48" y="48" width="1026" height="698" rx="10" fill="none" stroke="#C9A227" stroke-width="2"/>
+  <rect x="56" y="56" width="1010" height="682" rx="8" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity="0.6"/>
+  <!-- corner node ornaments -->
+  <use href="#ceni-corner-ornament" transform="translate(78 78)"/>
+  <use href="#ceni-corner-ornament" transform="translate(1044 78) scale(-1 1)"/>
+  <use href="#ceni-corner-ornament" transform="translate(78 716) scale(1 -1)"/>
+  <use href="#ceni-corner-ornament" transform="translate(1044 716) scale(-1 -1)"/>
+</svg>

@@ -1,0 +1,35 @@
+<svg width="1100" height="680" viewBox="0 0 1100 680" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa estilizado de Mexico">
+  <rect width="1100" height="680" rx="42" fill="#F7F5FB"/>
+  <g opacity=".55">
+    <circle cx="820" cy="110" r="2" fill="#D8D2E7"/>
+    <circle cx="864" cy="188" r="2" fill="#D8D2E7"/>
+    <circle cx="198" cy="132" r="2" fill="#D8D2E7"/>
+    <circle cx="246" cy="450" r="2" fill="#D8D2E7"/>
+    <circle cx="918" cy="482" r="2" fill="#D8D2E7"/>
+    <circle cx="790" cy="556" r="2" fill="#D8D2E7"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M145 74C174 86 188 113 199 143C214 183 237 220 262 252C284 281 309 310 321 347C335 390 323 431 344 465C363 496 404 500 436 501C481 502 523 505 563 523C603 540 635 570 677 584C712 595 761 604 786 570C808 540 786 507 765 482C739 450 713 420 690 384C662 340 628 313 579 298C534 284 487 275 444 252C401 229 367 192 332 159C284 114 230 81 145 74Z" fill="white" stroke="#D9D4E6" stroke-width="3"/>
+    <path d="M94 38C126 52 145 78 158 110C169 137 176 168 190 195C204 223 226 245 242 272C254 294 259 323 243 343C225 367 197 350 188 324C176 290 160 264 141 236C119 203 99 170 88 132C78 98 73 63 94 38Z" fill="white" stroke="#D9D4E6" stroke-width="3"/>
+    <path d="M783 456C824 431 873 422 919 438C954 450 981 476 1010 498C982 520 946 532 910 529C863 524 817 496 783 456Z" fill="white" stroke="#D9D4E6" stroke-width="3"/>
+    <path d="M790 406C817 388 844 378 876 379C907 380 927 397 940 425C902 417 864 420 827 434C813 425 800 416 790 406Z" fill="white" stroke="#D9D4E6" stroke-width="3"/>
+  </g>
+  <g stroke="#E6E1EF" stroke-width="2">
+    <path d="M292 151C312 200 333 249 344 302C351 339 348 378 362 412C381 459 428 474 474 489"/>
+    <path d="M371 199C398 232 431 260 475 276C524 293 580 301 619 336"/>
+    <path d="M424 253C412 298 400 342 398 391C397 432 414 468 443 500"/>
+    <path d="M514 291C506 335 512 382 531 423C549 463 581 496 618 524"/>
+    <path d="M608 322C630 359 657 395 688 428C721 462 751 499 773 542"/>
+    <path d="M149 103C163 143 180 184 205 218C220 240 235 260 245 287"/>
+    <path d="M827 435C849 458 879 474 912 483C942 491 972 497 1004 498"/>
+  </g>
+  <g opacity=".7">
+    <path d="M112 546C242 608 431 630 594 612C763 594 916 536 1010 438" stroke="#ECE8F3" stroke-width="2" stroke-dasharray="8 12"/>
+    <path d="M136 134C266 92 423 99 567 151C726 209 834 317 959 425" stroke="#ECE8F3" stroke-width="2" stroke-dasharray="8 12"/>
+  </g>
+  <defs>
+    <filter id="shadow" x="42" y="-8" width="1021" height="650" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#1A103C" flood-opacity=".12"/>
+    </filter>
+  </defs>
+</svg>

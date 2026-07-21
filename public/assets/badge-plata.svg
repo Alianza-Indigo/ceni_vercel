@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-labelledby="ceni-badge-plata-title">
+  <title id="ceni-badge-plata-title">Insignia CENI nivel Plata</title>
+  <defs>
+    <linearGradient id="ceni-ring-plata" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9AA0AB"/>
+      <stop offset="1" stop-color="#7A7F8A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="91" fill="none" stroke="url(#ceni-ring-plata)" stroke-width="8"/>
+  <circle cx="100" cy="100" r="87" fill="#1B1F5A"/>
+  <circle cx="100" cy="100" r="81" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1"/>
+  <g transform="translate(64 26) scale(0.6)">
+    <g stroke="#FFFFFF" stroke-width="7" stroke-linecap="round">
+      <line x1="86.9" y1="33.1" x2="60" y2="22"/>
+      <line x1="60" y1="22" x2="33.1" y2="33.1"/>
+      <line x1="33.1" y1="33.1" x2="22" y2="60"/>
+      <line x1="22" y1="60" x2="33.1" y2="86.9"/>
+      <line x1="33.1" y1="86.9" x2="60" y2="98"/>
+      <line x1="60" y1="98" x2="86.9" y2="86.9"/>
+      <line x1="33.1" y1="33.1" x2="50" y2="54"/>
+      <line x1="22" y1="60" x2="50" y2="54"/>
+    </g>
+    <g fill="#FFFFFF">
+      <circle cx="60" cy="22" r="7"/>
+      <circle cx="33.1" cy="33.1" r="8"/>
+      <circle cx="22" cy="60" r="9.5"/>
+      <circle cx="33.1" cy="86.9" r="7"/>
+      <circle cx="60" cy="98" r="8"/>
+      <circle cx="86.9" cy="33.1" r="8.5"/>
+      <circle cx="86.9" cy="86.9" r="8.5"/>
+      <circle cx="50" cy="54" r="5.5"/>
+    </g>
+  </g>
+  <text x="100" y="143" text-anchor="middle" font-family="Atkinson Hyperlegible, system-ui, sans-serif" font-weight="700" font-size="23" letter-spacing="3" fill="#FFFFFF">PLATA</text>
+  <g stroke="#C9A227" stroke-width="2.5" stroke-linecap="round">
+    <line x1="150.2" y1="159.8" x2="154.7" y2="165.1"/>
+    <line x1="131.7" y1="171.3" x2="134.6" y2="177.7"/>
+    <line x1="110.8" y1="177.2" x2="111.8" y2="184.2"/>
+    <line x1="89.2" y1="177.2" x2="88.2" y2="184.2"/>
+    <line x1="68.3" y1="171.3" x2="65.4" y2="177.7"/>
+    <line x1="49.8" y1="159.8" x2="45.3" y2="165.1"/>
+  </g>
+</svg>

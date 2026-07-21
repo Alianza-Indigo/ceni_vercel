@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/*
+ * CENI design tokens.
+ * Raw brand values live in :root as --ceni-* variables so calm mode can
+ * override them globally; Tailwind color utilities map onto them below.
+ */
+:root {
+  --ceni-indigo: #1b1f5a;
+  --ceni-indigo-soft: #2e3372;
+  --ceni-gold: #c9a227;
+  /* Gold readable on white backgrounds (>= 4.5:1). */
+  --ceni-gold-text: #8a6e14;
+  --ceni-ink: #333333;
+  --ceni-muted: #616161;
+  --ceni-surface: #ecedf5;
+  --ceni-cream: #f6efd9;
+  --ceni-white: #ffffff;
+  --ceni-bronze: #8c5a2b;
+  --ceni-silver: #5f6570;
+  --ceni-ok: #1e6b3a;
+  --ceni-warn: #8a5a00;
+  --ceni-bad: #8f2f2f;
+
+  --background: var(--ceni-white);
+  --foreground: var(--ceni-ink);
+  --card: var(--ceni-white);
+  --card-foreground: var(--ceni-ink);
+  --popover: var(--ceni-white);
+  --popover-foreground: var(--ceni-ink);
+  --primary: var(--ceni-indigo);
+  --primary-foreground: var(--ceni-white);
+  --secondary: var(--ceni-surface);
+  --secondary-foreground: var(--ceni-indigo);
+  --muted: var(--ceni-surface);
+  --muted-foreground: var(--ceni-muted);
+  --accent: var(--ceni-cream);
+  --accent-foreground: var(--ceni-ink);
+  --destructive: var(--ceni-bad);
+  --destructive-foreground: var(--ceni-white);
+  --border: #d5d7e6;
+  --input: #b9bcd4;
+  --ring: var(--ceni-indigo);
+  --radius: 0.625rem;
+
+  /* Calm-mode adjustable rhythm. */
+  --ceni-space-factor: 1;
+}
+
+/* Calm mode: desaturated palette, larger type, more air. */
+html[data-calm="true"] {
+  --ceni-indigo: #3d4066;
+  --ceni-indigo-soft: #4b4e75;
+  --ceni-gold: #a09268;
+  --ceni-gold-text: #6f6449;
+  --ceni-ink: #3a3a3a;
+  --ceni-muted: #5c5c5c;
+  --ceni-surface: #eeeef2;
+  --ceni-cream: #f3f1ea;
+  --ceni-bronze: #6f5a44;
+  --ceni-silver: #63666d;
+  --ceni-ok: #3d5c49;
+  --ceni-warn: #77613a;
+  --ceni-bad: #7a4646;
+  /* +12.5% type size. */
+  font-size: 112.5%;
+  --ceni-space-factor: 1.25;
+}
+
+html[data-calm="true"] .decorative-illustration {
+  display: none;
+}
+
+html[data-calm="true"] body {
+  letter-spacing: 0.01em;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-indigo: var(--ceni-indigo);
+  --color-indigo-soft: var(--ceni-indigo-soft);
+  --color-gold: var(--ceni-gold);
+  --color-gold-text: var(--ceni-gold-text);
+  --color-ink: var(--ceni-ink);
+  --color-muted-ink: var(--ceni-muted);
+  --color-surface: var(--ceni-surface);
+  --color-cream: var(--ceni-cream);
+  --color-level-bronze: var(--ceni-bronze);
+  --color-level-silver: var(--ceni-silver);
+  --color-level-gold: var(--ceni-gold);
+  --color-status-ok: var(--ceni-ok);
+  --color-status-warn: var(--ceni-warn);
+  --color-status-bad: var(--ceni-bad);
+
+  --font-sans: "Atkinson Hyperlegible", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 1rem; /* >= 16px */
+    line-height: 1.6; /* >= 1.5 */
+  }
+
+  /* Focus always visible, high-contrast, never removed. */
+  :focus-visible {
+    outline: 3px solid var(--ceni-indigo);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Animations are opt-in and short; motion is fully disabled on request. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Spacing that breathes more in calm mode. */
+  .calm-gap {
+    gap: calc(1rem * var(--ceni-space-factor));
+  }
+  .calm-stack > * + * {
+    margin-top: calc(1rem * var(--ceni-space-factor));
+  }
+  .calm-section {
+    padding-top: calc(3rem * var(--ceni-space-factor));
+    padding-bottom: calc(3rem * var(--ceni-space-factor));
+  }
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--ceni-indigo);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Printable certificate */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .print-page {
+    width: 100%;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+}

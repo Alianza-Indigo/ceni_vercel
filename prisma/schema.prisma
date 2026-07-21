@@ -1,0 +1,269 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ORG
+  ADMIN
+}
+
+enum Line {
+  LABORAL
+  ESPACIOS
+}
+
+enum OrgSize {
+  PEQUENA
+  MEDIANA
+  GRANDE
+  CORPORATIVO
+}
+
+enum OrgNetworkStatus {
+  AFILIADA
+}
+
+enum Stage {
+  SOLICITUD
+  REVISION_DOCUMENTAL
+  PROGRAMACION
+  AUDITORIA
+  DICTAMEN
+  CIERRE
+}
+
+enum FileStatus {
+  EN_PROCESO
+  PLAN_DE_MEJORA
+  CERTIFICADO
+  RECHAZADO
+}
+
+enum CertLevel {
+  BRONCE
+  PLATA
+  ORO
+}
+
+enum CertStatus {
+  VIGENTE
+  POR_VENCER
+  VENCIDA
+  SUSPENDIDA
+  RETIRADA
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(ORG)
+  calmMode     Boolean  @default(false)
+  orgId        String?
+  organization Organization? @relation(fields: [orgId], references: [id])
+  notes        AdminNote[]
+  createdAt    DateTime @default(now())
+}
+
+model Organization {
+  id           String   @id @default(cuid())
+  legalName    String
+  tradeName    String
+  rfc          String?
+  sector       String
+  size         OrgSize
+  street       String
+  city         String
+  state        String
+  postalCode   String
+  latitude     Decimal? @db.Decimal(9, 6)
+  longitude    Decimal? @db.Decimal(9, 6)
+  contactName  String
+  contactEmail String
+  phone        String?
+  website      String?
+  networkStatus OrgNetworkStatus @default(AFILIADA)
+  /// Commercial origin (distribution network); informational only.
+  referralCode String?
+  users          User[]
+  sites          Site[]
+  applications   Application[]
+  certifications Certification[]
+  createdAt    DateTime @default(now())
+}
+
+/// A physical establishment (branch, workplace, service location).
+/// Every organization gets a primary site at registration; chains add more.
+/// ESPACIOS files always target a site; LABORAL files target a site or the
+/// whole organization (siteId null on the application).
+model Site {
+  id           String   @id @default(cuid())
+  orgId        String
+  organization Organization @relation(fields: [orgId], references: [id])
+  name         String
+  street       String
+  city         String
+  state        String
+  postalCode   String
+  latitude     Decimal? @db.Decimal(9, 6)
+  longitude    Decimal? @db.Decimal(9, 6)
+  isPrimary    Boolean  @default(false)
+  applications   Application[]
+  certifications Certification[]
+  createdAt    DateTime @default(now())
+
+  @@index([orgId])
+}
+
+model Application {
+  id             String     @id @default(cuid())
+  orgId          String
+  organization   Organization @relation(fields: [orgId], references: [id])
+  /// Scope: a specific site, or null = the whole organization (LABORAL only).
+  siteId         String?
+  site           Site?      @relation(fields: [siteId], references: [id])
+  line           Line
+  isRenewal      Boolean    @default(false)
+  stage          Stage      @default(SOLICITUD)
+  status         FileStatus @default(EN_PROCESO)
+  stageEnteredAt DateTime   @default(now())
+  notes          AdminNote[]
+  evidences      Evidence[]
+  assessment     SelfAssessment?
+  certification  Certification?
+  verdict        Verdict?
+  createdAt      DateTime   @default(now())
+  decidedAt      DateTime?
+
+  @@index([orgId])
+  @@index([stage])
+}
+
+model AdminNote {
+  id            String      @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id])
+  authorId      String
+  author        User        @relation(fields: [authorId], references: [id])
+  stage         Stage?
+  body          String
+  createdAt     DateTime    @default(now())
+
+  @@index([applicationId])
+}
+
+model Evidence {
+  id            String      @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id])
+  dimension     Int
+  fileName      String
+  storedPath    String
+  mimeType      String
+  sizeBytes     Int
+  uploadedAt    DateTime    @default(now())
+
+  @@index([applicationId])
+}
+
+model SelfAssessment {
+  id            String      @id @default(cuid())
+  applicationId String      @unique
+  application   Application @relation(fields: [applicationId], references: [id])
+  /// Map of criterion code to compliance percentage: { "D1-C1": 0 | 50 | 100 }
+  answers       Json
+  updatedAt     DateTime    @updatedAt
+}
+
+model Criterion {
+  id        String @id @default(cuid())
+  line      Line
+  dimension Int
+  /// e.g. D1-C1 (Laboral) or E3-C4 (Espacios)
+  code      String @unique
+  title     String
+  helpText  String?
+  maxPoints Int
+  sortOrder Int
+
+  @@index([line, dimension])
+}
+
+model Certification {
+  id              String     @id @default(cuid())
+  orgId           String
+  organization    Organization @relation(fields: [orgId], references: [id])
+  /// Scope certified: a specific site, or null = the whole organization.
+  siteId          String?
+  site            Site?      @relation(fields: [siteId], references: [id])
+  applicationId   String     @unique
+  application     Application @relation(fields: [applicationId], references: [id])
+  line            Line
+  level           CertLevel
+  score           Int
+  /// Map of dimension number to points obtained: { "1": 120, ... }
+  dimensionScores Json
+  /// e.g. CENI-L-2026-0001
+  folio           String     @unique
+  issuedAt        DateTime   @default(now())
+  expiresAt       DateTime
+  status          CertStatus @default(VIGENTE)
+  statusReason    String?
+  qrToken         String     @unique
+
+  @@index([orgId])
+  @@index([status])
+}
+
+/// Committee verdict captured at the DICTAMEN stage; consumed at emission.
+model Verdict {
+  id              String      @id @default(cuid())
+  applicationId   String      @unique
+  application     Application @relation(fields: [applicationId], references: [id])
+  /// Committee-reviewed answers: { "D1-C1": 0 | 50 | 100 }
+  answers         Json
+  total           Int
+  dimensionScores Json
+  /// Dimensions under the 40% floor: [5, 6]
+  floorFailures   Json
+  level           CertLevel?
+  approved        Boolean
+  decidedById     String
+  createdAt       DateTime    @default(now())
+}
+
+/// Transactional per-line, per-year counter that guarantees unique folios.
+model FolioCounter {
+  id         String @id @default(cuid())
+  line       Line
+  year       Int
+  lastNumber Int    @default(0)
+
+  @@unique([line, year])
+}
+
+/// Append-only audit trail of every Committee/admin action.
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String
+  action    String
+  entity    String
+  entityId  String
+  payload   Json
+  createdAt DateTime @default(now())
+
+  @@index([actorId])
+  @@index([entity, entityId])
+}
+
+/// Manually curated public counters (e.g. people trained), editable by ADMIN.
+model SiteMetric {
+  key   String @id
+  label String
+  value Int
+}

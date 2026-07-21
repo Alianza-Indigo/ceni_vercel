@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="presentation" class="decorative-illustration" color="#1B1F5A">
+  <!-- Tileable: corner and edge nodes repeat at matching positions; lines stay inside the tile. -->
+  <g stroke="currentColor" stroke-opacity="0.03" stroke-width="2" fill="none">
+    <line x1="100" y1="58" x2="42" y2="140"/>
+    <line x1="100" y1="58" x2="158" y2="148"/>
+    <line x1="42" y1="140" x2="158" y2="148"/>
+    <line x1="100" y1="58" x2="100" y2="8"/>
+    <line x1="42" y1="140" x2="8" y2="100"/>
+    <line x1="158" y1="148" x2="192" y2="100"/>
+    <line x1="100" y1="192" x2="100" y2="148"/>
+    <line x1="100" y1="148" x2="42" y2="140"/>
+    <line x1="100" y1="148" x2="158" y2="148"/>
+  </g>
+  <g fill="currentColor" fill-opacity="0.04">
+    <circle cx="0" cy="0" r="6"/>
+    <circle cx="200" cy="0" r="6"/>
+    <circle cx="0" cy="200" r="6"/>
+    <circle cx="200" cy="200" r="6"/>
+    <circle cx="100" cy="0" r="4"/>
+    <circle cx="100" cy="200" r="4"/>
+    <circle cx="0" cy="100" r="4"/>
+    <circle cx="200" cy="100" r="4"/>
+    <circle cx="100" cy="58" r="7"/>
+    <circle cx="42" cy="140" r="5"/>
+    <circle cx="158" cy="148" r="6"/>
+    <circle cx="100" cy="148" r="3.5"/>
+  </g>
+  <g fill="#C9A227" fill-opacity="0.04">
+    <circle cx="100" cy="8" r="3"/>
+    <circle cx="8" cy="100" r="3"/>
+    <circle cx="192" cy="100" r="3"/>
+    <circle cx="100" cy="192" r="3"/>
+  </g>
+</svg>
