@@ -45,11 +45,42 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
+      - name: Validate database secret
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "Missing GitHub secret: DATABASE_URL"
+            echo "Add it in Repository Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
       - name: Install dependencies
-        run: npm install
+        run: npm install --ignore-scripts
+
+      - name: Generate Prisma client
+        run: npx prisma generate
 
       - name: Run migrations
         run: npm run db:migrate
+
+      - name: Validate seed secrets
+        if: ${{ inputs.run_seed == 'true' }}
+        run: |
+          missing=0
+          for name in SEED_ADMIN_EMAIL SEED_ADMIN_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              echo "Missing GitHub secret: $name"
+              missing=1
+            fi
+          done
+          if [ "$SEED_DEMO_DATA" = "true" ]; then
+            for name in SEED_ORG_EMAIL SEED_ORG_PASSWORD; do
+              if [ -z "${!name}" ]; then
+                echo "Missing GitHub secret: $name"
+                missing=1
+              fi
+            done
+          fi
+          exit "$missing"
 
       - name: Seed database
         if: ${{ inputs.run_seed == 'true' }}
