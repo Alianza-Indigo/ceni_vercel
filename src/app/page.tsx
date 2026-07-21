@@ -27,118 +27,129 @@ import type { DirectoryEntry } from "@/components/directory/directory-explorer";
 export const dynamic = "force-dynamic";
 
 async function getLandingData() {
-  const [certifications, organizations, peopleTrained] = await Promise.all([
-    prisma.certification.findMany({
-      where: { status: { in: ["VIGENTE", "POR_VENCER", "SUSPENDIDA"] } },
-      include: {
-        organization: {
-          select: {
-            id: true,
-            tradeName: true,
-            city: true,
-            state: true,
-            latitude: true,
-            longitude: true,
+  try {
+    const [certifications, organizations, peopleTrained] = await Promise.all([
+      prisma.certification.findMany({
+        where: { status: { in: ["VIGENTE", "POR_VENCER", "SUSPENDIDA"] } },
+        include: {
+          organization: {
+            select: {
+              id: true,
+              tradeName: true,
+              city: true,
+              state: true,
+              latitude: true,
+              longitude: true,
+            },
+          },
+          site: {
+            select: {
+              name: true,
+              city: true,
+              state: true,
+              isPrimary: true,
+              latitude: true,
+              longitude: true,
+            },
           },
         },
-        site: {
-          select: {
-            name: true,
-            city: true,
-            state: true,
-            isPrimary: true,
-            latitude: true,
-            longitude: true,
-          },
+      }),
+      prisma.organization.findMany({
+        where: { networkStatus: "AFILIADA" },
+        select: {
+          id: true,
+          tradeName: true,
+          city: true,
+          state: true,
+          latitude: true,
+          longitude: true,
         },
-      },
-    }),
-    prisma.organization.findMany({
-      where: { networkStatus: "AFILIADA" },
-      select: {
-        id: true,
-        tradeName: true,
-        city: true,
-        state: true,
-        latitude: true,
-        longitude: true,
-      },
-      orderBy: { createdAt: "asc" },
-    }),
-    prisma.siteMetric.findUnique({ where: { key: "people_trained" } }),
-  ]);
+        orderBy: { createdAt: "asc" },
+      }),
+      prisma.siteMetric.findUnique({ where: { key: "people_trained" } }),
+    ]);
 
-  const certifiedOrgIds = new Set(certifications.map((cert) => cert.orgId));
-  const certificationEntries: DirectoryEntry[] = certifications
-    .map((cert): DirectoryEntry => {
-      const org = {
-        tradeName: cert.organization.tradeName,
-        city: cert.organization.city,
-        state: cert.organization.state,
-        latitude: cert.organization.latitude ? Number(cert.organization.latitude) : null,
-        longitude: cert.organization.longitude ? Number(cert.organization.longitude) : null,
-      };
-      const site = cert.site
-        ? {
-            name: cert.site.name,
-            city: cert.site.city,
-            state: cert.site.state,
-            isPrimary: cert.site.isPrimary,
-            latitude: cert.site.latitude ? Number(cert.site.latitude) : null,
-            longitude: cert.site.longitude ? Number(cert.site.longitude) : null,
-          }
-        : null;
-      const location = scopeLocation(org, site);
-      return {
-        id: `cert:${cert.id}`,
-        category: "CERTIFICADA",
-        folio: cert.folio,
-        line: cert.line,
-        level: cert.level,
-        status: effectiveCertStatus(cert.status, cert.expiresAt),
-        expiresAt: cert.expiresAt.toISOString(),
-        orgId: cert.organization.id,
-        name: scopeDisplayName(org, site),
-        city: location.city,
-        state: location.state,
-        latitude: location.latitude,
-        longitude: location.longitude,
-      };
-    })
-    .filter((entry) => entry.status !== "VENCIDA");
-  const affiliateEntries: DirectoryEntry[] = organizations
-    .filter((org) => !certifiedOrgIds.has(org.id))
-    .map((org): DirectoryEntry => ({
-      id: `org:${org.id}`,
-      category: "AFILIADA",
-      folio: null,
-      line: null,
-      level: null,
-      status: "AFILIADA",
-      expiresAt: null,
-      orgId: org.id,
-      name: org.tradeName,
-      city: org.city,
-      state: org.state,
-      latitude: org.latitude ? Number(org.latitude) : null,
-      longitude: org.longitude ? Number(org.longitude) : null,
-    }));
-  const entries = [...certificationEntries, ...affiliateEntries].sort((a, b) =>
-    a.name.localeCompare(b.name, "es"),
-  );
-  const networkOrgIds = new Set([
-    ...organizations.map((org) => org.id),
-    ...certifications.map((cert) => cert.orgId),
-  ]);
-  const statesWithPresence = new Set(organizations.map((org) => org.state).filter(Boolean));
+    const certifiedOrgIds = new Set(certifications.map((cert) => cert.orgId));
+    const certificationEntries: DirectoryEntry[] = certifications
+      .map((cert): DirectoryEntry => {
+        const org = {
+          tradeName: cert.organization.tradeName,
+          city: cert.organization.city,
+          state: cert.organization.state,
+          latitude: cert.organization.latitude ? Number(cert.organization.latitude) : null,
+          longitude: cert.organization.longitude ? Number(cert.organization.longitude) : null,
+        };
+        const site = cert.site
+          ? {
+              name: cert.site.name,
+              city: cert.site.city,
+              state: cert.site.state,
+              isPrimary: cert.site.isPrimary,
+              latitude: cert.site.latitude ? Number(cert.site.latitude) : null,
+              longitude: cert.site.longitude ? Number(cert.site.longitude) : null,
+            }
+          : null;
+        const location = scopeLocation(org, site);
+        return {
+          id: `cert:${cert.id}`,
+          category: "CERTIFICADA",
+          folio: cert.folio,
+          line: cert.line,
+          level: cert.level,
+          status: effectiveCertStatus(cert.status, cert.expiresAt),
+          expiresAt: cert.expiresAt.toISOString(),
+          orgId: cert.organization.id,
+          name: scopeDisplayName(org, site),
+          city: location.city,
+          state: location.state,
+          latitude: location.latitude,
+          longitude: location.longitude,
+        };
+      })
+      .filter((entry) => entry.status !== "VENCIDA");
+    const affiliateEntries: DirectoryEntry[] = organizations
+      .filter((org) => !certifiedOrgIds.has(org.id))
+      .map((org): DirectoryEntry => ({
+        id: `org:${org.id}`,
+        category: "AFILIADA",
+        folio: null,
+        line: null,
+        level: null,
+        status: "AFILIADA",
+        expiresAt: null,
+        orgId: org.id,
+        name: org.tradeName,
+        city: org.city,
+        state: org.state,
+        latitude: org.latitude ? Number(org.latitude) : null,
+        longitude: org.longitude ? Number(org.longitude) : null,
+      }));
+    const entries = [...certificationEntries, ...affiliateEntries].sort((a, b) =>
+      a.name.localeCompare(b.name, "es"),
+    );
+    const networkOrgIds = new Set([
+      ...organizations.map((org) => org.id),
+      ...certifications.map((cert) => cert.orgId),
+    ]);
+    const statesWithPresence = new Set(organizations.map((org) => org.state).filter(Boolean));
 
-  return {
-    networkOrganizations: networkOrgIds.size,
-    certifiedOrganizations: certifiedOrgIds.size,
-    statesWithPresence: statesWithPresence.size,
-    peopleTrained: peopleTrained?.value ?? 0,
-    entries,
-  };
+    return {
+      networkOrganizations: networkOrgIds.size,
+      certifiedOrganizations: certifiedOrgIds.size,
+      statesWithPresence: statesWithPresence.size,
+      peopleTrained: peopleTrained?.value ?? 0,
+      entries,
+    };
+  } catch (error) {
+    console.error("Landing data unavailable", error);
+    return {
+      networkOrganizations: 0,
+      certifiedOrganizations: 0,
+      statesWithPresence: 0,
+      peopleTrained: 0,
+      entries: [] as DirectoryEntry[],
+    };
+  }
 }
 
 const categoryFilters = [
