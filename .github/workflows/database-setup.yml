@@ -1,0 +1,56 @@
+name: Database setup
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_seed:
+        description: "Run seed after migrations"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      seed_demo_data:
+        description: "Create demo organizations"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+      AUTH_TRUST_HOST: "true"
+      STORAGE_DRIVER: "vercel-blob"
+      BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+      SEED_DEMO_DATA: ${{ inputs.seed_demo_data }}
+      SEED_ADMIN_EMAIL: ${{ secrets.SEED_ADMIN_EMAIL }}
+      SEED_ADMIN_PASSWORD: ${{ secrets.SEED_ADMIN_PASSWORD }}
+      SEED_ORG_EMAIL: ${{ secrets.SEED_ORG_EMAIL }}
+      SEED_ORG_PASSWORD: ${{ secrets.SEED_ORG_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run migrations
+        run: npm run db:migrate
+
+      - name: Seed database
+        if: ${{ inputs.run_seed == 'true' }}
+        run: npm run db:seed
