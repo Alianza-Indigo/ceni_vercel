@@ -7,7 +7,10 @@ import { SignOutButton } from "@/components/layout/sign-out-button";
 import { auth } from "@/lib/auth";
 
 export async function SiteHeader() {
-  const session = await auth();
+  const session = await auth().catch((error) => {
+    console.error("Header auth unavailable", error);
+    return null;
+  });
   const role = session?.user?.role;
   const panelHref = role === "ADMIN" ? "/admin" : role === "ORG" ? "/panel" : null;
 
