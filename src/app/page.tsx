@@ -186,6 +186,42 @@ const benefits = [
   },
 ];
 
+const certificationPrinciples = [
+  {
+    icon: Users,
+    title: "De neurodivergente para neurodivergentes",
+    body: "El estándar nace de experiencia vivida, no de observar a la comunidad desde fuera.",
+  },
+  {
+    icon: Shield,
+    title: "Auditoría independiente",
+    body: "La red que capacita y acompaña no audita a la misma organización. El dictamen lo emite CENI Central.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Cumplimiento verificable",
+    body: "Cada certificación exige evidencia, folio, vigencia, trazabilidad y posibilidad real de suspensión o revocación.",
+  },
+];
+
+const certificationPath = [
+  {
+    icon: Building2,
+    title: "Afiliada",
+    body: "Entra a la red, aparece en el directorio y comienza su ruta de formación.",
+  },
+  {
+    icon: Sparkles,
+    title: "Candidata",
+    body: "Integra evidencia, prepara ajustes y solicita evaluación formal.",
+  },
+  {
+    icon: Crown,
+    title: "Certificada",
+    body: "Obtiene nivel Bronce, Plata u Oro después de auditoría y dictamen.",
+  },
+];
+
 const featured = [
   { name: "Tecnológico de Monterrey", sector: "Educación", city: "Monterrey, N.L." },
   { name: "Hospital Ángeles", sector: "Salud", city: "Ciudad de México" },
@@ -235,9 +271,9 @@ export default async function HomePage() {
               </span>
             </h1>
             <p className="mt-5 max-w-md text-base font-medium leading-relaxed text-[#20234a]">
-              Certificamos organizaciones que construyen entornos verdaderamente
-              neuroinclusivos. Juntos transformamos espacios en lugares donde todas
-              las mentes pertenecen.
+              Certificación elite de entornos neuroinclusivos, creada desde la
+              experiencia neurodivergente. No vendemos intención: verificamos
+              cumplimiento real.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
@@ -342,6 +378,65 @@ export default async function HomePage() {
         <div className="relative overflow-hidden rounded-[2rem] border border-[#e3dfef] bg-white p-3 shadow-2xl shadow-[#140a35]/10">
           <div className="overflow-hidden rounded-[1.4rem] [&_.maplibregl-ctrl-bottom-left]:hidden [&_.maplibregl-ctrl-bottom-right]:hidden">
             <DirectoryMap entries={data.entries} />
+          </div>
+        </div>
+      </section>
+
+      <section id="estandar" className="px-4 pb-10">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-[#e5def4] bg-[#fbfaff] shadow-xl shadow-[#140a35]/10">
+          <div className="grid lg:grid-cols-[0.38fr_0.62fr]">
+            <div className="bg-[linear-gradient(150deg,#070b2f,#2b1163_62%,#4b18a8)] p-8 text-white">
+              <p className="text-sm font-black uppercase tracking-wide text-[#dda632]">
+                Estándar CENI
+              </p>
+              <h2 className="mt-3 text-3xl font-black uppercase leading-tight">
+                Una certificación seria, selectiva y verificable
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-white/82">
+                CENI no es un distintivo de intención. Es una certificación de
+                cumplimiento, construida por una comunidad neurodivergente para
+                proteger a personas neurodivergentes.
+              </p>
+              <p className="mt-5 border-l-2 border-[#dda632] pl-4 text-sm font-bold leading-relaxed text-white">
+                No somos objeto de inclusión. Somos autores del estándar.
+              </p>
+            </div>
+
+            <div className="grid gap-0 sm:grid-cols-3">
+              {certificationPrinciples.map(({ icon: Icon, title, body }) => (
+                <article key={title} className="border-[#e5def4] p-7 sm:border-l">
+                  <Icon className="h-10 w-10 text-[#5b28b7]" aria-hidden="true" />
+                  <h3 className="mt-4 text-base font-black uppercase leading-tight text-[#070b2f]">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#3a3d63]">{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid border-t border-[#e5def4] bg-white lg:grid-cols-[0.26fr_0.74fr]">
+            <div className="p-7">
+              <p className="text-sm font-black uppercase tracking-wide text-[#5b28b7]">
+                Ruta pública
+              </p>
+              <h3 className="mt-2 text-2xl font-black uppercase leading-tight text-[#070b2f]">
+                Afiliarse no es certificarse
+              </h3>
+            </div>
+            <div className="grid gap-0 sm:grid-cols-3">
+              {certificationPath.map(({ icon: Icon, title, body }) => (
+                <article key={title} className="border-[#e5def4] p-7 sm:border-l">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#f1ecff] text-[#5b28b7]">
+                      <Icon className="h-6 w-6" aria-hidden="true" />
+                    </span>
+                    <h4 className="text-lg font-black uppercase text-[#070b2f]">{title}</h4>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-[#3a3d63]">{body}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
