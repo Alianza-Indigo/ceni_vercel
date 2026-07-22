@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   description:
     "Plataforma oficial del programa CENI de Alianza Índigo Neurodivergente A.C. No necesitas PARECER para SER.",
   icons: {
-    icon: [{ url: "/assets/favicon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/assets/favicon.svg?v=2", type: "image/svg+xml" }],
+    shortcut: [{ url: "/assets/favicon.svg?v=2", type: "image/svg+xml" }],
   },
   openGraph: {
     title: "CENI - Certificación de Entornos Neuroinclusivos",
