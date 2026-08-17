@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { href: "/#que-es-ceni", label: "¿Qué es CENI?" },
   { href: "/#beneficios", label: "Beneficios" },
   { href: "/proceso", label: "Recursos" },
+  { href: "https://curso.alianzaindigo.org", label: "Capacitación", external: true },
   { href: "/privacidad", label: "Contacto" },
 ];
 
@@ -55,16 +56,21 @@ export function MainNav({
         )}
       >
         {items.map((item) => {
+          const external = "external" in item && item.external;
           const hrefPath = item.href.split("#")[0] || "/";
           const active =
-            hrefPath === "/"
-              ? pathname === "/" && item.href === "/"
-              : pathname.startsWith(hrefPath);
+            external
+              ? false
+              : hrefPath === "/"
+                ? pathname === "/" && item.href === "/"
+                : pathname.startsWith(hrefPath);
           return (
             <li key={item.href}>
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
                 className={cn(
                   "inline-flex min-h-11 w-full items-center rounded-lg px-3 py-2 text-xs font-black uppercase tracking-wide xl:w-auto xl:px-2 2xl:px-3",
                   active
