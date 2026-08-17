@@ -25,7 +25,7 @@ const footerGroups = [
     title: "Recursos",
     links: [
       { href: "/principios", label: "Guías y herramientas" },
-      { href: "https://curso.alianzaindigo.org", label: "Capacitación", external: true },
+      { href: "https://curso.alianzaindigo.org", label: "Capacitación" },
       { href: "/proceso", label: "Blog" },
       { href: "/directorio", label: "Alianzas" },
       { href: "/registro", label: "Eventos" },
@@ -68,21 +68,13 @@ export function SiteFooter() {
                 {group.title}
               </h2>
               <ul className="mt-3 space-y-2 text-sm text-white/70">
-                {group.links.map((link) => {
-                  const external = "external" in link && link.external;
-                  return (
-                    <li key={`${group.title}-${link.href}-${link.label}`}>
-                      <Link
-                        href={link.href}
-                        className="hover:text-white"
-                        target={external ? "_blank" : undefined}
-                        rel={external ? "noopener noreferrer" : undefined}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  );
-                })}
+                {group.links.map((link) => (
+                  <li key={`${group.title}-${link.href}-${link.label}`}>
+                    <Link href={link.href} className="hover:text-white">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
           ))}

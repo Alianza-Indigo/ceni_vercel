@@ -69,8 +69,6 @@ export function MainNav({
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
                 className={cn(
                   "inline-flex min-h-11 w-full items-center whitespace-nowrap rounded-lg px-3 py-2 text-xs font-black uppercase tracking-wide xl:w-auto xl:px-1.5 xl:tracking-normal 2xl:px-3 2xl:tracking-wide",
                   active
