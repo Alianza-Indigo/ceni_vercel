@@ -51,7 +51,7 @@ export function MainNav({
       <ul
         id="menu-principal"
         className={cn(
-          "absolute left-0 right-0 top-full flex-col border-b border-[#e7e2f0] bg-white px-4 pb-4 shadow-sm xl:static xl:flex xl:flex-row xl:items-center xl:gap-1 xl:border-0 xl:p-0 xl:shadow-none",
+          "absolute left-0 right-0 top-full flex-col border-b border-[#e7e2f0] bg-white px-4 pb-4 shadow-sm xl:static xl:flex xl:flex-row xl:flex-nowrap xl:items-center xl:gap-0.5 xl:border-0 xl:p-0 xl:shadow-none 2xl:gap-1",
           open ? "flex" : "hidden",
         )}
       >
@@ -72,7 +72,7 @@ export function MainNav({
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
                 className={cn(
-                  "inline-flex min-h-11 w-full items-center rounded-lg px-3 py-2 text-xs font-black uppercase tracking-wide xl:w-auto xl:px-2 2xl:px-3",
+                  "inline-flex min-h-11 w-full items-center whitespace-nowrap rounded-lg px-3 py-2 text-xs font-black uppercase tracking-wide xl:w-auto xl:px-1.5 xl:tracking-normal 2xl:px-3 2xl:tracking-wide",
                   active
                     ? "text-[#070b2f] underline decoration-[#5b28b7] decoration-2 underline-offset-8"
                     : "text-[#070b2f] hover:bg-[#f5f1ff]",
