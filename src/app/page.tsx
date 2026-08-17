@@ -4,7 +4,9 @@ import {
   ArrowRight,
   BadgeCheck,
   Building2,
+  ClipboardCheck,
   Crown,
+  FileCheck,
   GraduationCap,
   HeartHandshake,
   Infinity as InfinityIcon,
@@ -12,6 +14,7 @@ import {
   MapPin,
   Search,
   Shield,
+  ShieldCheck,
   Sparkles,
   Star,
   Stethoscope,
@@ -222,6 +225,24 @@ const certificationPath = [
   },
 ];
 
+const nom035Points = [
+  {
+    icon: ClipboardCheck,
+    title: "Identificación y prevención",
+    body: "Complementa la identificación y prevención de factores de riesgo psicosocial que exige la NOM-035, incorporando las necesidades reales de las personas neurodivergentes.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Entorno organizacional favorable",
+    body: "Impulsa entornos de trabajo que reducen el riesgo psicosocial mediante ajustes razonables y prácticas de neuroinclusión verificadas.",
+  },
+  {
+    icon: FileCheck,
+    title: "Cumplimiento verificable",
+    body: "Aporta evidencia, folio y trazabilidad que respaldan tu cumplimiento normativo con un enfoque de neurodiversidad auditable.",
+  },
+];
+
 export default async function HomePage() {
   const data = await getLandingData();
   const peopleLabel =
@@ -425,6 +446,47 @@ export default async function HomePage() {
                     </span>
                     <h4 className="text-lg font-black uppercase text-[#070b2f]">{title}</h4>
                   </div>
+                  <p className="mt-3 text-sm leading-relaxed text-[#3a3d63]">{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="nom-035" className="px-4 pb-10">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-[#e5def4] bg-white shadow-xl shadow-[#140a35]/10">
+          <div className="grid lg:grid-cols-[0.4fr_0.6fr]">
+            <div className="bg-[linear-gradient(150deg,#0d2a26,#134e3f_60%,#1c7a52)] p-8 text-white">
+              <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-[#8ee6b6]">
+                <Shield className="h-4 w-4" aria-hidden="true" />
+                NOM-035-STPS-2018
+              </p>
+              <h2 className="mt-3 text-3xl font-black uppercase leading-tight">
+                Cumple la NOM-035 con enfoque neurodivergente
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-white/85">
+                La NOM-035 obliga a identificar, analizar y prevenir los factores
+                de riesgo psicosocial en el trabajo. CENI te ayuda a cumplirla y va
+                más allá: incorpora la perspectiva neurodivergente que la norma no
+                detalla, para que la prevención proteja a todas las mentes.
+              </p>
+              <Link
+                href="/registro"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#8ee6b6] px-5 text-sm font-black uppercase text-[#0d2a26] hover:bg-[#a9f0c9]"
+              >
+                <BadgeCheck className="h-4 w-4" aria-hidden="true" />
+                Certifica tu cumplimiento
+              </Link>
+            </div>
+
+            <div className="grid gap-0 sm:grid-cols-3">
+              {nom035Points.map(({ icon: Icon, title, body }) => (
+                <article key={title} className="border-[#e5def4] p-7 sm:border-l">
+                  <Icon className="h-10 w-10 text-[#137a52]" aria-hidden="true" />
+                  <h3 className="mt-4 text-base font-black uppercase leading-tight text-[#070b2f]">
+                    {title}
+                  </h3>
                   <p className="mt-3 text-sm leading-relaxed text-[#3a3d63]">{body}</p>
                 </article>
               ))}
