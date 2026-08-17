@@ -8,7 +8,7 @@ const footerGroups = [
     links: [
       { href: "/", label: "Inicio" },
       { href: "/#mapa", label: "Mapa" },
-      { href: "/#empresas", label: "Empresas" },
+      { href: "/directorio", label: "Empresas" },
       { href: "/#que-es-ceni", label: "¿Qué es CENI?" },
     ],
   },

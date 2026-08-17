@@ -222,14 +222,6 @@ const certificationPath = [
   },
 ];
 
-const featured = [
-  { name: "Tecnológico de Monterrey", sector: "Educación", city: "Monterrey, N.L." },
-  { name: "Hospital Ángeles", sector: "Salud", city: "Ciudad de México" },
-  { name: "BBVA", sector: "Finanzas", city: "Ciudad de México" },
-  { name: "DHL", sector: "Logística", city: "Guadalajara, Jal." },
-  { name: "Grupo Bimbo", sector: "Alimentos", city: "Estado de México" },
-];
-
 export default async function HomePage() {
   const data = await getLandingData();
   const peopleLabel =
@@ -477,36 +469,6 @@ export default async function HomePage() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="empresas" className="mx-auto max-w-7xl px-4 py-8">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="flex items-center gap-2 text-lg font-black uppercase text-[#070b2f]">
-            <Star className="h-5 w-5 fill-[#dda632] text-[#dda632]" aria-hidden="true" />
-            Organizaciones certificadas destacadas
-          </h2>
-          <Link href="/directorio" className="hidden items-center gap-2 text-sm font-black uppercase text-[#5b28b7] sm:inline-flex">
-            Ver todas las organizaciones <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-        <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-          {featured.map((org) => (
-            <article key={org.name} className="rounded-xl border border-[#e7e2f0] bg-white p-5 shadow-lg shadow-[#140a35]/5">
-              <div className="flex min-h-16 items-center justify-between gap-3">
-                <h3 className="text-lg font-black leading-tight text-[#17204f]">{org.name}</h3>
-                <Shield className="h-9 w-9 shrink-0 text-[#5b28b7]" aria-hidden="true" />
-              </div>
-              <p className="mt-4 inline-flex rounded-md bg-[#f1eef7] px-2 py-1 text-xs font-bold text-[#5b28b7]">
-                {org.sector}
-              </p>
-              <p className="mt-3 flex items-center gap-1 text-xs font-bold text-[#817a9b]">
-                <MapPin className="h-3 w-3" aria-hidden="true" />
-                {org.city}
-              </p>
-              <p className="mt-3 text-[#dda632]">★★★★★</p>
-            </article>
-          ))}
         </div>
       </section>
 

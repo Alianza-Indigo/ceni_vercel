@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const NAV_ITEMS = [
   { href: "/", label: "Inicio" },
   { href: "/#mapa", label: "Mapa" },
-  { href: "/#empresas", label: "Empresas" },
+  { href: "/directorio", label: "Empresas" },
   { href: "/#que-es-ceni", label: "¿Qué es CENI?" },
   { href: "/#beneficios", label: "Beneficios" },
   { href: "/proceso", label: "Recursos" },
