@@ -70,7 +70,7 @@ export function MainNav({
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "inline-flex min-h-11 w-full items-center whitespace-nowrap rounded-lg px-3 py-2 text-xs font-black uppercase tracking-wide xl:w-auto xl:px-1.5 xl:tracking-normal 2xl:px-3 2xl:tracking-wide",
+                  "inline-flex min-h-11 w-full items-center whitespace-nowrap rounded-lg px-3 py-2 text-xs font-black uppercase tracking-wide xl:w-auto xl:px-1.5 xl:tracking-normal 2xl:px-2.5",
                   active
                     ? "text-[#070b2f] underline decoration-[#5b28b7] decoration-2 underline-offset-8"
                     : "text-[#070b2f] hover:bg-[#f5f1ff]",

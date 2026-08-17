@@ -42,12 +42,13 @@ export function CalmModeToggle() {
       type="button"
       onClick={toggle}
       aria-pressed={calm}
-      className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm font-bold text-indigo hover:bg-surface"
+      title={calm ? "Modo calma activado" : "Activar modo calma"}
+      className="inline-flex min-h-10 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-bold text-indigo hover:bg-surface aria-[pressed=true]:border-indigo aria-[pressed=true]:bg-surface"
     >
       <svg
         aria-hidden="true"
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -57,7 +58,7 @@ export function CalmModeToggle() {
       >
         <path d="M3 12c3-5 6-5 9 0s6 5 9 0" />
       </svg>
-      <span>{calm ? "Modo calma: activado" : "Modo calma"}</span>
+      <span>Modo calma</span>
     </button>
   );
 }
