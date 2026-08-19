@@ -81,7 +81,12 @@ export default async function OrgDashboardPage() {
             {organization.city}, {organization.state}
           </p>
         </div>
-        <SignOutButton />
+        <div className="flex flex-wrap items-center gap-3">
+          <Button asChild variant="outline">
+            <Link href="/panel/empleados">Empleados</Link>
+          </Button>
+          <SignOutButton />
+        </div>
       </div>
 
       {/* Sites */}

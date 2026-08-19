@@ -34,7 +34,13 @@ BLOB_READ_WRITE_TOKEN="..."
 SEED_DEMO_DATA="false"
 SEED_ADMIN_EMAIL="admin@tu-dominio"
 SEED_ADMIN_PASSWORD="..."
+CURSO_API_URL="https://curso.alianzaindigo.org/api/partner"
+CURSO_API_KEY="..."
 ```
+
+`CURSO_API_URL`/`CURSO_API_KEY` son para la integración server-to-server con
+`curso_ceni` (ver sección "Integración con curso_ceni" abajo) — nunca se
+exponen al cliente.
 
 Para generar `AUTH_SECRET`:
 
@@ -83,6 +89,20 @@ Para desarrollo local, puedes usar almacenamiento en disco:
 STORAGE_DRIVER="local"
 UPLOAD_DIR="./data/uploads"
 ```
+
+## Integración con curso_ceni
+
+El panel de organización (`/panel/empleados`) permite invitar empleados a tomar el
+Curso CENI (repo hermano `curso_ceni`) y ver su progreso agregado. No hay base de
+datos compartida ni SSO entre ambos sistemas: `curso_ceni` es la fuente de verdad
+del estado de invitación y progreso, y expone dos rutas server-to-server
+(`POST /invitaciones`, `GET /progreso`) autenticadas con
+`Authorization: Bearer CURSO_API_KEY` (mismo valor que su `PARTNER_API_KEY`).
+
+`src/lib/curso-client.ts` es el único punto que llama a ese servicio — con
+timeout corto y sin lanzar excepción por fallos esperables — y solo se importa
+desde `src/app/panel/empleados/`. No se persiste ningún estado de
+invitación/progreso en la base de datos de este repo (ver `ASSUMPTIONS.md`).
 
 ## Notas operativas
 

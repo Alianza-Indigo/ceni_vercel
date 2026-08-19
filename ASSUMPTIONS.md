@@ -140,3 +140,18 @@ exigió. Ante conflicto, el spec original manda.
     usuaria; el rate limit acota su uso para enumeración de cuentas.
 38. **Proxy inverso**: debe reenviar `X-Forwarded-Proto` y `X-Forwarded-For`
     (cookies seguras de Auth.js y rate limiting por IP dependen de ellos).
+
+## Integración con curso_ceni (empleados)
+
+39. **Sin persistencia local del estado de invitación/progreso**: `/panel/empleados`
+    consulta en vivo la API de `curso_ceni` (`src/lib/curso-client.ts`) en cada carga
+    de página, en vez de guardar una copia en la base de datos de este repo.
+    Se decidió así para no crear una segunda fuente de verdad que pueda
+    desincronizarse (p. ej. una invitación aceptada en `curso_ceni` pero que
+    localmente siguiera viéndose "pendiente" si un paso de sincronización
+    fallara). El costo es un fetch adicional por carga de esa página
+    únicamente — `/panel` (el dashboard principal) no llama a `curso_ceni` en
+    absoluto, así que un fallo total de ese servicio nunca afecta el resto del
+    panel. Si el volumen de empleados creciera lo suficiente para que este
+    fetch en vivo sea costoso, la alternativa sería una tabla local de solo
+    auditoría ("qué se invitó y cuándo"), no una réplica del progreso.
